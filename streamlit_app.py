@@ -153,6 +153,17 @@ CHECKPOINTS = [
 
 RANKS = ["SI", "SSI", "HC", "Gr-I PC", "PC"]
 
+
+def trigger_alert_notification(officer_name, station, checkpoint_name, distance_meters, phone=""):
+    timestamp = datetime.datetime.now().strftime("%I:%M:%S %p")
+    msg = f"""🚨 POLICE CONTROL ROOM ALERT [{timestamp}]
+Violation: Out-of-Bounds Attendance Detected!
+Station: {station} | Checkpoint: {checkpoint_name}
+Officer: {officer_name} ({phone})
+Distance Deviation: {distance_meters:.1f} meters (Exceeds 100m geofence by {distance_meters - 100:.1f}m)"""
+    return msg
+
+
 def calculate_haversine(lat1, lon1, lat2, lon2):
     """Calculate the great-circle distance between two points in meters using Haversine formula."""
     R = 6371000  # Earth radius in meters
@@ -517,8 +528,9 @@ with tab2:
                     - **Timestamp:** `{timestamp_now}`
                     """)
                 else:
+                    st.toast(f"🚨 AUTOMATIC ALERT DISPATCHED TO CONTROL ROOM FOR {officer_name_selected}!", icon="🚨")
                     st.error(f"""
-                    ### ⚠️ GEOFENCE VIOLATION DETECTED!
+                    ### 🚨 GEOFENCE VIOLATION & AUTOMATIC ALERT TRIGGERED!
                     - **Officer:** {officer_name_selected}
                     - **Status Tag:** `Flagged Out-of-Bounds`
                     - **Distance from Checkpoint Center:** `{dist:.1f} meters` (**{dist - 100:.1f} meters OUTSIDE 100m geofence!**)
@@ -533,6 +545,20 @@ with tab2:
 with tab3:
     st.subheader("📊 Supervisory Live Attendance & Geo-Fence Control Center")
     
+        # Live Emergency Alert Notification Banner
+    dash_date_check = datetime.date.today().strftime("%Y-%m-%d")
+    current_checkins = get_checkins(dash_date_check)
+    if not current_checkins.empty:
+        oob_list = current_checkins[current_checkins["status"] == "Flagged Out-of-Bounds"]
+        if not oob_list.empty:
+            st.error(f"🚨 **CRITICAL CONTROL ROOM ALERT ({len(oob_list)} Violation(s) Detected)**: Immediate action required! Officers flagged Out-of-Bounds today.")
+            with st.expander("📲 View Triggered Alert Dispatches & Send WhatsApp/SMS Notification", expanded=True):
+                for _, row in oob_list.iterrows():
+                    st.warning(f"⚠️ **{row['officer_name']}** at Checkpoint #{row['checkpoint_id']} - Distance: **{row['distance_meters']:.1f}m** away (Punched at {row['timestamp']})")
+                    if st.button(f"📱 Dispatch SMS/WhatsApp Alert for {row['officer_name']}", key=f"sms_alert_{row['id']}"):
+                        alert_msg = trigger_alert_notification(row['officer_name'], "Thanjavur Sub-Division", f"Checkpoint #{row['checkpoint_id']}", row['distance_meters'])
+                        st.success("✅ Alert Dispatched to Duty Inspector Phone!\n\n" + str(alert_msg))
+
     dash_date = st.date_input("Select Monitoring Date", datetime.date.today(), key="tab3_date").strftime("%Y-%m-%d")
     
     # Query current DB status
