@@ -138,17 +138,17 @@ st.markdown("""
 # ---------------------------------------------------------
 CHECKPOINTS = [
     # East PS
-    {"id": 1, "station": "East PS", "name": "T-Square", "lat": 10.7938, "lon": 79.1408, "radius": 100},
-    {"id": 2, "station": "East PS", "name": "கீழவாசல் 4 ரோடு (Keelavasal 4 Road)", "lat": 10.7942, "lon": 79.1475, "radius": 100},
+    {"id": 1, "station": "East PS", "name": "T-Square", "lat": 10.778028, "lon": 79.152972, "radius": 100},
+    {"id": 2, "station": "East PS", "name": "கீழவாசல் 4 ரோடு (Keelavasal 4 Road)", "lat": 10.789778, "lon": 79.142222, "radius": 100},
     # West PS
-    {"id": 3, "station": "West PS", "name": "கோடியம்மன் கோவில் (Kodiamman Kovil)", "lat": 10.7998, "lon": 79.1332, "radius": 100},
-    {"id": 4, "station": "West PS", "name": "பழைய பேருந்து நிலையம் (Old Bus Stand)", "lat": 10.7865, "lon": 79.1382, "radius": 100},
+    {"id": 3, "station": "West PS", "name": "கோடியம்மன் கோவில் (Kodiamman Kovil)", "lat": 10.812444, "lon": 79.139083, "radius": 100},
+    {"id": 4, "station": "West PS", "name": "பழைய பேருந்து நிலையம் (Old Bus Stand)", "lat": 10.787583, "lon": 79.138361, "radius": 100},
     # South PS
-    {"id": 5, "station": "South PS", "name": "அண்ணா நகர் Junction (Anna Nagar Jn)", "lat": 10.7762, "lon": 79.1348, "radius": 100},
-    {"id": 6, "station": "South PS", "name": "ராமநாதன் ரவுண்டானா (Ramanathan Roundana)", "lat": 10.7818, "lon": 79.1360, "radius": 100},
+    {"id": 5, "station": "South PS", "name": "அண்ணா நகர் Junction (Anna Nagar Jn)", "lat": 10.762528, "lon": 79.140361, "radius": 100},
+    {"id": 6, "station": "South PS", "name": "ராமநாதன் ரவுண்டானா (Ramanathan Roundana)", "lat": 10.77256, "lon": 79.13243, "radius": 100},
     # TMCH PS
-    {"id": 7, "station": "TMCH PS", "name": "புதிய பேருந்து நிலையம் (New Bus Stand)", "lat": 10.7585, "lon": 79.1082, "radius": 100},
-    {"id": 8, "station": "TMCH PS", "name": "ரஹ்மான் நகர் Junction (Rahman Nagar Jn)", "lat": 10.7674, "lon": 79.1176, "radius": 100}
+    {"id": 7, "station": "TMCH PS", "name": "வெற்றி ஈ ஸ்கொயர் (Vetri E Square)", "lat": 10.75275, "lon": 79.109583, "radius": 100},
+    {"id": 8, "station": "TMCH PS", "name": "ரஹ்மான் நகர் Junction (Rahman Nagar Jn)", "lat": 10.757111, "lon": 79.099444, "radius": 100}
 ]
 
 RANKS = ["SI", "SSI", "HC", "Gr-I PC", "PC"]

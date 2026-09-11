@@ -10,11 +10,19 @@ Built with **Python**, **Streamlit**, **Folium**, and **SQLite**.
 - **Mobile & Field Check-in**: Live GPS coordinates, desktop simulator testing controls, and mandatory selfie capture.
 - **Supervisory Dashboard**: Interactive Leaflet Map with dynamic geofence color badges, Station Accordion Personnel Audit, and 1-click CSV Report Export.
 
-## 📍 Predefined Checkpoints (Thanjavur Sub-Division)
-- **East PS**: T-Square & Keelavasal 4 Road
-- **West PS**: Kodiamman Kovil & Old Bus Stand
-- **South PS**: Anna Nagar Jn & Ramanathan Roundana
-- **TMCH PS**: New Bus Stand & Rahman Nagar Jn
+## 📍 Predefined Checkpoints & Exact GPS Coordinates (Thanjavur Sub-Division)
+- **East PS**:
+  - `T-Square`: `10.778028° N, 79.152972° E`
+  - `கீழவாசல் 4 ரோடு (Keelavasal 4 Road)`: `10.789778° N, 79.142222° E`
+- **West PS**:
+  - `கோடியம்மன் கோவில் (Kodiamman Kovil)`: `10.812444° N, 79.139083° E`
+  - `பழைய பேருந்து நிலையம் (Old Bus Stand)`: `10.787583° N, 79.138361° E`
+- **South PS**:
+  - `அண்ணா நகர் Junction (Anna Nagar Jn)`: `10.762528° N, 79.140361° E`
+  - `ராமநாதன் ரவுண்டானா (Ramanathan Roundana)`: `10.772560° N, 79.132430° E`
+- **TMCH PS**:
+  - `வெற்றி ஈ ஸ்கொயர் (Vetri E Square)`: `10.752750° N, 79.109583° E`
+  - `ரஹ்மான் நகர் Junction (Rahman Nagar Jn)`: `10.757111° N, 79.099444° E`
 
 ## 🚀 Quick Setup & Run
 
