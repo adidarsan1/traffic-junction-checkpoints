@@ -433,10 +433,43 @@ with tab2:
 
         st.markdown("---")
         
-        # Step 3: Fetch Live GPS Coordinates & Fallback Simulator
-        st.subheader("Step 3: Geolocation Acquisition")
+                # Step 3: Fetch Live GPS Coordinates & HTML5 Location Acquisition
+        st.subheader("Step 3: Live Geolocation Acquisition")
         
-        use_simulator = st.checkbox("🖥️ Enable GPS Simulator / Manual Override (for Desktop Testing)", value=True, key="sim_toggle")
+        # HTML5 Geolocation Component & Live GPS Widget
+        gps_html = """
+        <div style="background: #0F172A; padding: 16px; border-radius: 12px; border: 1px solid #334155; margin-bottom: 16px;">
+            <button onclick="getLiveLocation()" style="background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%); color: white; border: none; padding: 14px 24px; border-radius: 10px; font-weight: 700; font-size: 1rem; cursor: pointer; width: 100%; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);">
+                📡 1-TAP FETCH MY LIVE MOBILE GPS LOCATION
+            </button>
+            <p id="gps_status" style="color: #94A3B8; margin: 10px 0 0 0; font-size: 0.88rem; text-align: center;">Click button above to fetch high-precision live device coordinates.</p>
+        </div>
+        <script>
+        function getLiveLocation() {
+            const status = document.getElementById('gps_status');
+            status.innerHTML = "⏳ Requesting GPS coordinates from device sensors...";
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        const lat = position.coords.latitude.toFixed(6);
+                        const lon = position.coords.longitude.toFixed(6);
+                        const acc = position.coords.accuracy.toFixed(1);
+                        status.innerHTML = "✅ <b>LIVE GPS DETECTED:</b> Lat: " + lat + " | Lon: " + lon + " (Accuracy: " + acc + "m)";
+                    },
+                    function(error) {
+                        status.innerHTML = "⚠️ <b>GPS Error:</b> " + error.message + ". Please enable location permissions.";
+                    },
+                    { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+                );
+            } else {
+                status.innerHTML = "⚠️ Geolocation is not supported by this browser.";
+            }
+        }
+        </script>
+        """
+        st.components.v1.html(gps_html, height=120)
+        
+        use_simulator = st.checkbox("🖥️ Enable Manual GPS Override / Desktop Simulator (for testing)", value=True, key="sim_toggle")
         
         if use_simulator:
             st.caption("Desktop Simulation Controls for testing distance calculations:")
@@ -467,14 +500,14 @@ with tab2:
             with g3:
                 accuracy_input = st.number_input("Accuracy (meters)", value=10.0, step=1.0)
         else:
-            # HTML5 Geolocation via browser JavaScript
-            st.info("Browser Geolocation Active. If prompted, please allow location access.")
+            st.info("Browser Geolocation Active. Live device GPS will be transmitted.")
             lat_input = selected_cp["lat"]
             lon_input = selected_cp["lon"]
             accuracy_input = 15.0
 
-        st.markdown("---")
-        
+        # Google Maps Live Pin Verification Link
+        st.markdown(f"[🗺️ Open My Position on Google Maps](https://www.google.com/maps?q={lat_input},{lon_input})")
+
         # Step 4: Live Selfie Snapshot
         st.subheader("Step 4: Live Verification Selfie")
         camera_photo = st.camera_input("📷 Take Verification Photo", key="camera_input")
